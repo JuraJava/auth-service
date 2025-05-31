@@ -18,4 +18,4 @@ databaseChangeLog:
                   type: VARCHAR(45)
                   constraints:
                     nullable: false
-#                   добавить unique: true
+                    unique: true

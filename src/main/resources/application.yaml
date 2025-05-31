@@ -9,7 +9,7 @@ server:
   port: 8080
 spring:
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/asc_database?currentSchema=auth_service}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/bank_database?currentSchema=auth_service}
     username: ${DATABASE_USERNAME:postgres}
     password: ${DATABASE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver

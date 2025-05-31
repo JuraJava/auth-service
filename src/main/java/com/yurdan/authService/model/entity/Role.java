@@ -1,5 +1,6 @@
 package com.yurdan.authService.model.entity;
 
+import com.yurdan.authService.model.enums.RoleName;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,13 +20,9 @@ public class Role {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role_name", nullable = false)
+    @Column(name = "role_name", nullable = false, unique = true)
     private RoleName roleName;
 
-    //TODO вынести в отдельный класс
-    public enum RoleName {
-        ADMIN, USER
-    }
 }
 
 
