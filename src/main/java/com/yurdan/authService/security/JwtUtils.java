@@ -3,49 +3,44 @@ package com.yurdan.authService.security;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.*;
-import lombok.RequiredArgsConstructor;
+import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import java.util.Base64;
+import java.util.Map;
 
+@Slf4j
 @Component
-@RequiredArgsConstructor
 public class JwtUtils {
 
     @Value("${jwt.secret}")
     private String secret;
-// Этот метод ранее был расположен в классе AuthController
+
+    private SecretKey secretKey;
+
+    @PostConstruct
+    public void init() {
+        this.secretKey = new SecretKeySpec(secret.getBytes(), SignatureAlgorithm.HS256.getJcaName());
+    }
+
     public boolean validateToken(String token) {
         try {
-            //TODO заменить deprecated parser на parserBuilder
-            Jwts.parser()
-                    //TODO подготовить secret на этапе создания класса, исключив постоянные лишние вызовы.
-                    //TODO использовать имплементацию "Key" из перегруженного метода setSigningKey(Key var1); Например SecretKey
-                    .setSigningKey(secret.getBytes())
+            Jwts.parserBuilder()
+                    .setSigningKey(secretKey)
+                    .build()
                     .parseClaimsJws(token);
             return true;
         } catch (JwtException e) {
-            //TODO логирование
+            log.warn("Invalid token: {}", e.getMessage());
             return false;
         }
     }
 
-    public String getEmailFromToken(String token) {
-        return (String) getPayload(token).get("email");
-    }
-
-    public List<String> getRolesFromToken(String token) {
-        Object rolesObj = getPayload(token).get("roles");
-        if (rolesObj instanceof List<?> roles) {
-            return roles.stream()
-                    .map(Object::toString)
-                    .toList();
-        }
-        return Collections.emptyList();
-    }
-// Ранее эта логика была в методе isAdmin() в классе AuthService
-    private Map<String, Object> getPayload(String token) {
+    public Map<String, Object> getPayload(String token) {
         String[] parts = token.split("\\.");
         if (parts.length < 2) throw new IllegalArgumentException("Invalid token");
 
@@ -58,4 +53,3 @@ public class JwtUtils {
         }
     }
 }
-

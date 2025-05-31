@@ -21,16 +21,13 @@ public class BankUser {
     @Column(name = "id")
     private UUID uuid;
 
-    //TODO емейл должен быть уникальный, т.к. это логин. Добавить валидацию на @email
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    //TODO добавить валидацию на минимальную и максимальную длину пароля
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, length = 64)
     private String password;
 
-    //TODO FetchType.EAGER заменить на LAZY
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "bank_user_role",
             joinColumns = @JoinColumn(name = "bank_user_id"),
