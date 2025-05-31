@@ -1,18 +1,16 @@
 databaseChangeLog:
   - changeSet:
-      id: 001-create-bank-user
+      id: 001-create-user
       author: Yuri Danilov
       changes:
         - createTable:
-            tableName: bank_user
+            tableName: users
             columns:
               - column:
                   name: id
                   type: UUID
                   constraints:
-                    autoIncrement: true
                     primaryKey: true
-                    nullable: false
               - column:
                   name: email
                   type: VARCHAR(45)

@@ -1,15 +1,8 @@
-#spring.datasource.url=jdbc:postgresql://localhost:5432/auth_service
-#spring.datasource.username=postgres
-#spring.datasource.password=postgres
-#spring.jpa.hibernate.ddl-auto=none
-#spring.liquibase.change-log=classpath:db/changelog/db.changelog-master.yaml
-#jwt.secret=MySuperSecretKey12345
-
 server:
   port: 8080
 spring:
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/bank_database?currentSchema=auth_service}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/asc_database?currentSchema=auth_service}
     username: ${DATABASE_USERNAME:postgres}
     password: ${DATABASE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
@@ -23,4 +16,5 @@ spring:
 jwt:
   secret: ${JWT_ACCESS_SECRET:"luAUigPkQylTDBN0J58GVnKVgfhi+T2oOitIk6u8/HqGVBOxuJFANQD5OHPVKHdxsdxIUiNyIRh18PvzCCdGRQ=="}
 
-
+app:
+  init-data: false

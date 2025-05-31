@@ -1,13 +1,13 @@
 databaseChangeLog:
   - changeSet:
-      id: 003-create-bank-user-role
+      id: 003-create-users-roles
       author: Yuri Danilov
       changes:
         - createTable:
-            tableName: bank_user_role
+            tableName: users_roles
             columns:
               - column:
-                  name: bank_user_id
+                  name: user_id
                   type: UUID
                   constraints:
                     nullable: false
@@ -17,14 +17,14 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
-            baseTableName: bank_user_role
-            baseColumnNames: bank_user_id
-            referencedTableName: bank_user
+            baseTableName: users_roles
+            baseColumnNames: user_id
+            referencedTableName: users
             referencedColumnNames: id
-            constraintName: fk_bank_user_role_bank_user
+            constraintName: fk_user_role_user
         - addForeignKeyConstraint:
-            baseTableName: bank_user_role
+            baseTableName: users_roles
             baseColumnNames: role_id
-            referencedTableName: role
+            referencedTableName: roles
             referencedColumnNames: id
-            constraintName: fk_bank_user_role_role
+            constraintName: fk_user_role_role

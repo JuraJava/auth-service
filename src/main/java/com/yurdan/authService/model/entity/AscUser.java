@@ -1,25 +1,24 @@
 package com.yurdan.authService.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "bank_user")
-public class BankUser {
+@Table(name = "users")
+public class AscUser implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
-    private UUID uuid;
+    private UUID id;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -29,8 +28,8 @@ public class BankUser {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "bank_user_role",
-            joinColumns = @JoinColumn(name = "bank_user_id"),
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 

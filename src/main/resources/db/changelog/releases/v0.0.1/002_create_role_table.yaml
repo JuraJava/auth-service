@@ -4,15 +4,14 @@ databaseChangeLog:
       author: Yuri Danilov
       changes:
         - createTable:
-            tableName: role
+            tableName: roles
             columns:
               - column:
                   name: id
                   type: BIGINT
                   constraints:
-                    autoIncrement: true
                     primaryKey: true
-                    nullable: false
+                  autoIncrement: true
               - column:
                   name: role_name
                   type: VARCHAR(45)
