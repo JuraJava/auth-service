@@ -1,6 +1,6 @@
 package com.yurdan.authService.service;
 
-import com.yurdan.authService.model.entity.BankUser;
+import com.yurdan.authService.model.entity.AscUser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.annotation.PostConstruct;
@@ -31,12 +31,12 @@ public class TokenService {
         this.secretKey = new SecretKeySpec(secret.getBytes(), SignatureAlgorithm.HS256.getJcaName());
     }
 
-    public String generateToken(BankUser user) {
+    public String generateToken(AscUser ascUser) {
         try {
             Map<String, Object> payload = new HashMap<>();
-            payload.put(KEY_UUID, user.getUuid().toString());
-            payload.put(KEY_EMAIL, user.getEmail());
-            payload.put(KEY_ROLES, user.getRoles().stream()
+            payload.put(KEY_UUID, ascUser.getId().toString());
+            payload.put(KEY_EMAIL, ascUser.getEmail());
+            payload.put(KEY_ROLES, ascUser.getRoles().stream()
                     .map(r -> r.getRoleName().name()).toList());
 
             return Jwts.builder()

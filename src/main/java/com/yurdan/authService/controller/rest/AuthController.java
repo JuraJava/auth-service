@@ -2,7 +2,7 @@ package com.yurdan.authService.controller.rest;
 
 import com.yurdan.authService.dto.LoginRequest;
 import com.yurdan.authService.dto.RegisterDto;
-import com.yurdan.authService.model.entity.BankUser;
+import com.yurdan.authService.model.entity.AscUser;
 import com.yurdan.authService.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -31,8 +31,8 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterDto registerDto) {
         try {
-            BankUser savedUser = authService.register(registerDto);
-            return ResponseEntity.ok(savedUser);
+            AscUser savedAscUser = authService.register(registerDto);
+            return ResponseEntity.ok(savedAscUser);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -44,14 +44,14 @@ public class AuthController {
                                          @RequestParam(defaultValue = "0") int page,
                                          @RequestParam(defaultValue = "10") int size) {
 
-        BankUser requester = authService.findByEmail(principal.getName());
+        AscUser requester = authService.findByEmail(principal.getName());
 
         if (requester == null || requester.getRoles().stream()
                 .noneMatch(role -> role.getRoleName().name().equals("ADMIN"))) {
             return ResponseEntity.status(403).body("Access denied");
         }
 
-        Page<BankUser> users = authService.findAllUsers(page, size);
+        Page<AscUser> users = authService.findAllUsers(page, size);
         return ResponseEntity.ok(users);
     }
 

@@ -1,10 +1,10 @@
 package com.yurdan.authService.service;
 
 import com.yurdan.authService.dto.RegisterDto;
-import com.yurdan.authService.model.entity.BankUser;
+import com.yurdan.authService.model.entity.AscUser;
 import com.yurdan.authService.model.entity.Role;
 import com.yurdan.authService.model.enums.RoleName;
-import com.yurdan.authService.repository.BankUserRepository;
+import com.yurdan.authService.repository.AscUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,33 +16,33 @@ import static org.mockito.Mockito.*;
 
 class AuthServiceRegisterTest {
 
-    private BankUserRepository bankUserRepository;
+    private AscUserRepository ascUserRepository;
     private BCryptPasswordEncoder passwordEncoder;
     private TokenService tokenService;
     private AuthService authService;
 
     @BeforeEach
     void setUp() {
-        bankUserRepository = mock(BankUserRepository.class);
+        ascUserRepository = mock(AscUserRepository.class);
         passwordEncoder = mock(BCryptPasswordEncoder.class);
         tokenService = mock(TokenService.class);
-        authService = new AuthService(bankUserRepository, passwordEncoder, tokenService);
+        authService = new AuthService(ascUserRepository, passwordEncoder, tokenService);
     }
 
     @Test
     void register_validInput_shouldSaveUser() {
         String email = "test@example.com";
         String password = "securePassword";
-        Role role = new Role(1L, RoleName.USER);
+        Role role = Role.builder().id(1L).roleName(RoleName.USER).build();
 
         RegisterDto dto = new RegisterDto(email, password, Collections.singletonList(role));
 
-        when(bankUserRepository.findByEmail(email)).thenReturn(null);
+        when(ascUserRepository.findByEmail(email)).thenReturn(null);
         when(passwordEncoder.encode(password)).thenReturn("encodedPassword");
-        when(bankUserRepository.save(any(BankUser.class)))
+        when(ascUserRepository.save(any(AscUser.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
-        BankUser result = authService.register(dto);
+        AscUser result = authService.register(dto);
 
         assertNotNull(result);
         assertEquals(email, result.getEmail());
@@ -50,7 +50,7 @@ class AuthServiceRegisterTest {
         assertEquals(1, result.getRoles().size());
         assertEquals(role.getRoleName(), result.getRoles().get(0).getRoleName());
 
-        verify(bankUserRepository).save(any(BankUser.class));
+        verify(ascUserRepository).save(any(AscUser.class));
     }
 
     @Test
@@ -58,10 +58,10 @@ class AuthServiceRegisterTest {
         String email = "existing@example.com";
         RegisterDto dto = new RegisterDto(email, "password", Collections.emptyList());
 
-        when(bankUserRepository.findByEmail(email)).thenReturn(new BankUser());
+        when(ascUserRepository.findByEmail(email)).thenReturn(new AscUser());
 
         RuntimeException ex = assertThrows(RuntimeException.class, () -> authService.register(dto));
-        assertEquals("User already exists", ex.getMessage());
+        assertEquals("AscUser already exists", ex.getMessage());
     }
 
     @Test

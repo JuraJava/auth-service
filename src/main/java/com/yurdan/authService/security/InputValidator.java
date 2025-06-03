@@ -8,7 +8,7 @@ public class InputValidator {
             "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$"
     );
 
-    private static final int MIN_PASSWORD_LENGTH = 6;
+    private static final int MIN_PASSWORD_LENGTH = 4;
     private static final int MAX_PASSWORD_LENGTH = 64;
 
     public static boolean isValidEmail(String email) {

@@ -1,9 +1,9 @@
 package com.yurdan.authService.service;
 
 import com.yurdan.authService.dto.LoginRequest;
-import com.yurdan.authService.model.entity.BankUser;
+import com.yurdan.authService.model.entity.AscUser;
 import com.yurdan.authService.dto.RegisterDto;
-import com.yurdan.authService.repository.BankUserRepository;
+import com.yurdan.authService.repository.AscUserRepository;
 import com.yurdan.authService.security.InputValidator;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -21,19 +21,19 @@ public class AuthService {
     @Value("${jwt.secret}")
     private String secret;
 
-    private final BankUserRepository bankUserRepository;
+    private final AscUserRepository ascUserRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final TokenService tokenService;
 
     public String login(LoginRequest loginRequest) {
-        BankUser bankUser = bankUserRepository.findByEmail(loginRequest.getEmail());
-        if (bankUser == null || !passwordEncoder.matches(loginRequest.getPassword(), bankUser.getPassword())) {
+        AscUser ascUser = ascUserRepository.findByEmail(loginRequest.getEmail());
+        if (ascUser == null || !passwordEncoder.matches(loginRequest.getPassword(), ascUser.getPassword())) {
             throw new RuntimeException("Invalid email or password");
         }
-        return tokenService.generateToken(bankUser);
+        return tokenService.generateToken(ascUser);
     }
 
-    public BankUser register(RegisterDto dto) {
+    public AscUser register(RegisterDto dto) {
         if (!InputValidator.isValidEmail(dto.email())) {
             throw new RuntimeException("Invalid email format");
         }
@@ -42,27 +42,27 @@ public class AuthService {
             throw new RuntimeException("Password must be between 6 and 64 characters");
         }
 
-        if (bankUserRepository.findByEmail(dto.email()) != null) {
-            throw new RuntimeException("User already exists");
+        if (ascUserRepository.findByEmail(dto.email()) != null) {
+            throw new RuntimeException("AscUser already exists");
         }
 
-        BankUser user = new BankUser();
-        user.setEmail(dto.email());
-        user.setRoles(dto.roles());
-        user.setPassword(passwordEncoder.encode(dto.password()));
-        return bankUserRepository.save(user);
+        AscUser ascUser = new AscUser();
+        ascUser.setEmail(dto.email());
+        ascUser.setRoles(dto.roles());
+        ascUser.setPassword(passwordEncoder.encode(dto.password()));
+        return ascUserRepository.save(ascUser);
     }
 
 
-    public BankUser findByEmail(String email) {
-        return bankUserRepository.findByEmail(email);
+    public AscUser findByEmail(String email) {
+        return ascUserRepository.findByEmail(email);
     }
 
-    public Page<BankUser> findAllUsers(int page, int size) {
+    public Page<AscUser> findAllUsers(int page, int size) {
         if (page < 0 || size <= 0 || size > 100) {
             throw new IllegalArgumentException("Invalid pagination parameters");
         }
-        return bankUserRepository.findAll(PageRequest.of(page, size));
+        return ascUserRepository.findAll(PageRequest.of(page, size));
     }
 
 }
