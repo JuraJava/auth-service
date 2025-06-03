@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  postgres-asc:
+    build: ./
+    container_name: postgres_asc
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: asc_database
+    ports:
+      - "5432:5432"
