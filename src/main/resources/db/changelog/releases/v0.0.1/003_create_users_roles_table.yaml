@@ -7,24 +7,24 @@ databaseChangeLog:
             tableName: users_roles
             columns:
               - column:
-                  name: user_id
+                  name: users_id
                   type: UUID
                   constraints:
                     nullable: false
               - column:
-                  name: role_id
+                  name: roles_id
                   type: BIGINT
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
             baseTableName: users_roles
-            baseColumnNames: user_id
+            baseColumnNames: users_id
             referencedTableName: users
             referencedColumnNames: id
-            constraintName: fk_user_role_user
+            constraintName: fk_users_roles_users
         - addForeignKeyConstraint:
             baseTableName: users_roles
-            baseColumnNames: role_id
+            baseColumnNames: roles_id
             referencedTableName: roles
             referencedColumnNames: id
-            constraintName: fk_user_role_role
+            constraintName: fk_users_roles_roles

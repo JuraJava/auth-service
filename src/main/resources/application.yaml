@@ -1,8 +1,29 @@
+#server:
+#  port: 8080
+#spring:
+#  datasource:
+#    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/asc_database?currentSchema:auth_service}
+#    username: ${DATABASE_USERNAME:postgres}
+#    password: ${DATABASE_PASSWORD:postgres}
+#    driver-class-name: org.postgresql.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: none
+#  liquibase:
+#    enabled: true
+#    change-log: classpath:db/changelog/releases/db.changelog-master.yaml
+#    default-schema: ${APP_POSTGRESQL_SCHEMA:auth_service}
+#jwt:
+#  secret: ${JWT_ACCESS_SECRET:"luAUigPkQylTDBN0J58GVnKVgfhi+T2oOitIk6u8/HqGVBOxuJFANQD5OHPVKHdxsdxIUiNyIRh18PvzCCdGRQ=="}
+#
+#app:
+#  init-data: false
+
 server:
   port: 8080
 spring:
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/asc_database?currentSchema=auth_service}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/database_asc?currentSchema:public}
     username: ${DATABASE_USERNAME:postgres}
     password: ${DATABASE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
@@ -12,9 +33,27 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/releases/db.changelog-master.yaml
-    default-schema: ${APP_POSTGRESQL_SCHEMA:auth_service}
+    default-schema: ${APP_POSTGRESQL_SCHEMA:public}
 jwt:
   secret: ${JWT_ACCESS_SECRET:"luAUigPkQylTDBN0J58GVnKVgfhi+T2oOitIk6u8/HqGVBOxuJFANQD5OHPVKHdxsdxIUiNyIRh18PvzCCdGRQ=="}
 
 app:
   init-data: false
+
+
+#server:
+#  port: 8080
+#spring:
+#  datasource:
+#    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/database_asc?currentSchema:public}
+#    username: ${DATABASE_USERNAME:postgres}
+#    password: ${DATABASE_PASSWORD:postgres}
+#    driver-class-name: org.postgresql.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: none
+#  liquibase:
+#    enabled: true
+#    change-log: classpath:db/changelog/releases/db.changelog-master.yaml
+#    default-schema: ${APP_POSTGRESQL_SCHEMA:public}
+
