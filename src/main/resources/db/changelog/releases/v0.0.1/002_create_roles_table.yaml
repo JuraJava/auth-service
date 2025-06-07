@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 002-create-role
+      id: 002-create-roles
       author: Yuri Danilov
       changes:
         - createTable:
