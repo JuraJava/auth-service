@@ -47,9 +47,34 @@ public class DatabaseInit {
                 .email("user@mail.ru")
                 .password(passwordEncoder.encode("user"))
                 .roles(List.of(role2)).build();
+        AscUser user3 = AscUser.builder()
+                .email("receiver@mail.ru")
+                .password(passwordEncoder.encode("receiver"))
+                .roles(List.of(role3)).build();
+        AscUser user4 = AscUser.builder()
+                .email("engineer@mail.ru")
+                .password(passwordEncoder.encode("engineer"))
+                .roles(List.of(role4)).build();
+        AscUser user5 = AscUser.builder()
+                .email("administrator@mail.ru")
+                .password(passwordEncoder.encode("administrator"))
+                .roles(List.of(role5)).build();
+        AscUser user6 = AscUser.builder()
+                .email("storekeeper@mail.ru")
+                .password(passwordEncoder.encode("storekeeper"))
+                .roles(List.of(role6)).build();
+        AscUser user7 = AscUser.builder()
+                .email("director@mail.ru")
+                .password(passwordEncoder.encode("director"))
+                .roles(List.of(role7)).build();
 
         ascUserRepository.save(user1);
         ascUserRepository.save(user2);
+        ascUserRepository.save(user3);
+        ascUserRepository.save(user4);
+        ascUserRepository.save(user5);
+        ascUserRepository.save(user6);
+        ascUserRepository.save(user7);
 
     }
 }
