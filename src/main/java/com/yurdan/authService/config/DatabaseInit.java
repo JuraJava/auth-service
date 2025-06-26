@@ -26,8 +26,19 @@ public class DatabaseInit {
     public void init() {
         Role role1 = Role.builder().roleName(RoleName.ADMIN).build();
         Role role2 = Role.builder().roleName(RoleName.USER).build();
+        Role role3 = Role.builder().roleName(RoleName.RECEIVER).build();
+        Role role4 = Role.builder().roleName(RoleName.ENGINEER).build();
+        Role role5 = Role.builder().roleName(RoleName.ADMINISTRATOR).build();
+        Role role7 = Role.builder().roleName(RoleName.STOREKEEPER).build();
+        Role role6 = Role.builder().roleName(RoleName.DIRECTOR).build();
         roleRepository.save(role1);
         roleRepository.save(role2);
+        roleRepository.save(role3);
+        roleRepository.save(role4);
+        roleRepository.save(role5);
+        roleRepository.save(role6);
+        roleRepository.save(role7);
+
         AscUser user1 = AscUser.builder()
                 .email("admin@mail.ru")
                 .password(passwordEncoder.encode("admin"))
