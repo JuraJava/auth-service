@@ -38,8 +38,8 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/users")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping("/users")
     public ResponseEntity<?> getAllUsers(Principal principal,
                                          @RequestParam(defaultValue = "0") int page,
                                          @RequestParam(defaultValue = "10") int size) {
