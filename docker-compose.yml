@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  auth-service:
+    build:
+      context: ./auth-service
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JWT_SECRET="luAUigPkQylTDBN0J58GVnKVgfhi+T2oOitIk6u8/HqGVBOxuJFANQD5OHPVKHdxsdxIUiNyIRh18PvzCCdGRQ=="
+    networks:
+      - backend
+
+  asc-service:
+    build:
+      context: ./asc-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JWT_SECRET="luAUigPkQylTDBN0J58GVnKVgfhi+T2oOitIk6u8/HqGVBOxuJFANQD5OHPVKHdxsdxIUiNyIRh18PvzCCdGRQ=="
+      - AUTH_SERVICE_URL=http://auth-service:8080
+    depends_on:
+      - auth-service
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
