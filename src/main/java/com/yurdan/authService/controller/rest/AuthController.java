@@ -27,7 +27,7 @@ public class AuthController {
             return ResponseEntity.status(401).body("Invalid email or password");
         }
     }
-
+//    @PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'RECEIVER')")
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterDto registerDto) {
         try {
