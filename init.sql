@@ -1,1 +1,1 @@
--- create schema auth_service;
+create schema auth_service;

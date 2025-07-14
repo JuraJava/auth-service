@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${PORT:8080}
 security:
   jwt:
     secret: ${JWT_ACCESS_SECRET:"luAUigPkQylTDBN0J58GVnKVgfhi+T2oOitIk6u8/HqGVBOxuJFANQD5OHPVKHdxsdxIUiNyIRh18PvzCCdGRQ=="}

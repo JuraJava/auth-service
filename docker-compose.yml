@@ -1,14 +1,14 @@
-#version: '3.8'
-#
-#services:
-#  asc_database:
-#    build: ./
-#    container_name: asc_database
-#    environment:
-#      POSTGRES_USER: postgres
-#      POSTGRES_PASSWORD: postgres
-#      POSTGRES_DB: asc_database
-#    ports:
-#      - "5454:5432"
-#volumes:
-#  pgdata:
+version: '3.8'
+
+services:
+  asc_database:
+    build: ./
+    container_name: asc_database
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: asc_database
+    ports:
+      - "5454:5432"
+volumes:
+  pgdata:
